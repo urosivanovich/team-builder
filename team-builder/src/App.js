@@ -1,25 +1,61 @@
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import Member from './Member'
+import MemberForm from './MemberForm'
 
-function App() {
+const initialFormValues = {
+  memname: '',
+  email: '',
+  role: '',
+}
+
+
+export default function App() {
+const [members, setMembers] = useState([])
+
+const [formValues, setFormValues] = useState(initialFormValues)
+const [error, setError] = useState('')
+
+const updateForm  = (inputName, inputValue) => {
+  setFormValues({...formValues, [inputName]: inputValue});
+}
+
+const submitForm =  () => {
+
+  const newMember = {
+    memname: formValues.username.trim(),
+    email: formValues.email.trim(),
+    role: formValues.role,
+  }
+
+if(!newMember.memname || !newMember.email || !newMember.role){
+  setError('All fields are required')
+}else{
+  setMembers([newMember, ...members]);
+  setFormValues(initialFormValues);
+  setError('')
+}
+
+}
+
   return (
+
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <h1>Members</h1>
+
+      <MemberForm  
+      values={formValues}
+      update={updateForm}
+      submit={submitForm}
+      />
+      {
+        members.map(member => {
+          return( <Member key={member.id} details={member} />
+          )
+        })
+      }
     </div>
   );
 }
 
-export default App;
+
