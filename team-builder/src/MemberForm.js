@@ -5,51 +5,52 @@ export default function MemberForm (props) {
     const { values, update, submit  } = props
 
 
-    const onChange = evt => {
+    const handleChange = evt => {
 
-        const name = evt.target.name;
-        const { value } = evt.target;
+        const { name, value } = evt.target;
         update(name, value);
     }
 
-    const onSubmit = evt => {
+    const handleSubmit = evt => {
         evt.preventDefault();
         submit();
     }
 
 
     return (
-        <form className='form container' onSubmit={onSubmit}>
+        <form className='form container' onSubmit={handleSubmit}>
             <div className='form-groun inputs'>
-                <label>
-                    Memeber Name: <input 
-                    name='memname'
+                <label> Member Name: 
+                    <input 
+                    name='membername'
                     type='text'
                     placeholder='Type your Name'
                     maxLength='30'
-                    value={values.memname}
-                    onChange={onChange}
+                    value={values.membername}
+                    onChange={handleChange}
     
                     />
                 </label>
-                <label>
-                    Email: <input 
+                <label>Email: 
+                    <input 
                     name='email'
                     type='email'
                     placeholder='email address'
                     value={values.email}
-                    onChange={onChange}
+                    onChange={handleChange}
                     />
                 </label>
-                <label>
-                    Role
-                    <select>
+                <label>Role
+                    <select value={values.role} name='role' onChange={handleChange}> 
                         <option value=''>--Select a Role--</option>
-                        <option value='FrontEnd'>--Select a Role--</option>
-                        <option value='BackEnd'>--Select a Role--</option>
-                        <option value='FullStack'>--Select a Role--</option>
+                        <option value='FrontEnd'>Front End Engineer</option>
+                        <option value='BackEnd'>Back End Engineer</option>
+                        <option value='FullStack'>Full Stack Engineer</option>
                     </select>
                 </label>
+                <div className="submit">
+                    <button>Submit</button>
+                </div>
             </div>
         </form>
 

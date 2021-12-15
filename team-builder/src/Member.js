@@ -7,7 +7,7 @@ export default function Member (props) {
 
     return (
         <div className="form container">
-            <h2>{details.memname}</h2>
+            <h2>{details.membername}</h2>
             <p>Email: {details.email}</p>
             <p>Role: {details.role}</p>
         </div>

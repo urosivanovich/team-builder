@@ -4,15 +4,15 @@ import Member from './Member'
 import MemberForm from './MemberForm'
 
 const initialFormValues = {
-  memname: '',
+  membername: '',
   email: '',
   role: '',
 }
 
 
 export default function App() {
-const [members, setMembers] = useState([])
 
+const [members, setMembers] = useState([])
 const [formValues, setFormValues] = useState(initialFormValues)
 const [error, setError] = useState('')
 
@@ -21,17 +21,19 @@ const updateForm  = (inputName, inputValue) => {
 }
 
 const submitForm =  () => {
-
+  
   const newMember = {
-    memname: formValues.username.trim(),
+    membername: formValues.membername.trim(),
     email: formValues.email.trim(),
-    role: formValues.role,
+    role: formValues.role
   }
+ 
+  
 
-if(!newMember.memname || !newMember.email || !newMember.role){
+if(!newMember.membername || !newMember.email || !newMember.role){
   setError('All fields are required')
 }else{
-  setMembers([newMember, ...members]);
+  setMembers(members.concat(newMember));
   setFormValues(initialFormValues);
   setError('')
 }
@@ -42,6 +44,7 @@ if(!newMember.memname || !newMember.email || !newMember.role){
 
     <div className="App">
       <h1>Members</h1>
+      <h2>{error}</h2>
 
       <MemberForm  
       values={formValues}
@@ -49,8 +52,8 @@ if(!newMember.memname || !newMember.email || !newMember.role){
       submit={submitForm}
       />
       {
-        members.map(member => {
-          return( <Member key={member.id} details={member} />
+        members.map((member, idx) => {
+          return( <Member key={idx} details={member} />
           )
         })
       }
